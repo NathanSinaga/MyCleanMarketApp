@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="product_name">Nama Pahlawan</string>
     <string name="description">Deskripsi</string>
+    <string name="price">harga</string>
 
     <string name="list">List</string>
     <string name="grid">Grid</string>
@@ -11,11 +12,37 @@
     <string name="favorite">Favorite</string>
     <string name="share">Share</string>
 
+    <string-array name="data_id">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="data_photo">
+        <item>https://images.tokopedia.net/img/cache/700/OJWluG/2022/9/23/d3bcbb65-3a67-4eea-8bf7-11ef116a1058.jpg</item>
+        <item>https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//106/MTA-47464774/indomie_indomie_aceh_mie_goreng_1pcs_-_indomi_mie_instan_full01_mjd0ddwf.jpg</item>
+        <item>https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/112/MTA-99536845/indomie_indomie-ayam-bawang-10-pcs_full01.jpg</item>
+        <item>https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//89/MTA-7225811/indomie_indomie_soto_full01_gkreh8d3.jpg</item>
+        <item>https://images.tokopedia.net/img/cache/700/OJWluG/2022/9/23/d3bcbb65-3a67-4eea-8bf7-11ef116a1058.jpg</item>
+        <item>https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//106/MTA-47464774/indomie_indomie_aceh_mie_goreng_1pcs_-_indomi_mie_instan_full01_mjd0ddwf.jpg</item>
+        <item>https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/112/MTA-99536845/indomie_indomie-ayam-bawang-10-pcs_full01.jpg</item>
+        <item>https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//89/MTA-7225811/indomie_indomie_soto_full01_gkreh8d3.jpg</item>
+    </string-array>
+
     <string-array name="data_name">
         <item>Indomie Rendang</item>
         <item>Indomie Aceh</item>
         <item>Indomie Ayam Bawang</item>
         <item>Indomie Soto</item>
+        <item>Indomie Rendang Jumbo</item>
+        <item>Indomie Aceh Jumbo</item>
+        <item>Indomie Ayam Jumbo</item>
+        <item>Indomie Soto Jumbo</item>
     </string-array>
 
     <string-array name="data_description">
@@ -23,6 +50,10 @@
         <item>Mie Instan yang membawa rasa Kota Aceh kemanapun anda berada</item>
         <item>Mie Instan yang membawa rasa kehangatan sup ayam kemanapun anda berada</item>
         <item>Mie Instan yang membawa rasa Kota Soto kemanapun anda berada</item>
+        <item>Mie Instan yang membawa rasa Kota Padang kemanapun anda berada dalam ukuran Jumbo</item>
+        <item>Mie Instan yang membawa rasa Kota Aceh kemanapun anda berada dalam ukuran Jumbo</item>
+        <item>Mie Instan yang membawa rasa kehangatan sup ayam kemanapun anda berada dalam ukuran Jumbo</item>
+        <item>Mie Instan yang membawa rasa Kota Soto kemanapun anda berada dalam ukuran Jumbo</item>
     </string-array>
 
     <string-array name="data_price">
@@ -30,5 +61,9 @@
         <item>Rp. 3.000</item>
         <item>Rp. 3.000</item>
         <item>Rp. 4.000</item>
+        <item>Rp. 6.000</item>
+        <item>Rp. 4.000</item>
+        <item>Rp. 4.000</item>
+        <item>Rp. 5.000</item>
     </string-array>
 </resources>
