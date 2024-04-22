@@ -10,4 +10,5 @@ data class Product (
     var description: String,
     var price: String,
     var photo: String
+
 ) : Parcelable
