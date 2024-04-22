@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+         android:icon="@drawable/icon_profile_black"
+         android:id="@+id/nav_profile"
+         android:title="Profile"/>
+    <item
+        android:icon="@drawable/icon_wishlist"
+        android:id="@+id/nav_wishlist"
+        android:title="Wishlist"/>
+    <item
+        android:icon="@drawable/icon_history"
+        android:id="@+id/nav_history"
+        android:title="History"/>
+    <item
+        android:icon="@drawable/icon_customer_service"
+        android:id="@+id/nav_customer_service"
+        android:title="Get Help"/>
+    <item
+        android:icon="@drawable/icon_terms_and_conditions"
+        android:id="@+id/nav_terms_and_conditions"
+        android:title="Terms and Condition"/>
+</menu>
