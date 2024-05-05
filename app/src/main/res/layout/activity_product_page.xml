@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="135dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/gradient_background_1"
         android:orientation="vertical">
 
@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
             android:gravity="left"
             android:text="Rp. 10.000"
             android:textColor="@color/white"

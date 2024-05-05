@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
         searchList.addAll(list)
 
 
+        listProductAdapter = ListProductAdapter(searchList)
+        recyclerView.adapter = listProductAdapter
+
+
+
         searchView.clearFocus()
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -69,41 +74,27 @@ class MainActivity : AppCompatActivity() {
                     list.forEach {
                         if(it.name.toLowerCase(Locale.getDefault()).contains(searchText)) {
                             searchList.add(it)
-                            recyclerView.adapter!!.notifyDataSetChanged()
+
                         }
+                        recyclerClick()
                     }
                 } else {
                     searchList.clear()
                     searchList.addAll(list)
-                    recyclerView.adapter!!.notifyDataSetChanged()
                 }
-                showRecyclerSearchList()
+                recyclerView.adapter!!.notifyDataSetChanged()
                 return true
             }
 
         })
 
-        listProductAdapter = ListProductAdapter(searchList)
-        recyclerView.adapter = listProductAdapter
 
-        listProductAdapter.onItemClick = {
-            Toast.makeText(applicationContext, "Berhasil Tekan Product", Toast.LENGTH_LONG).show()
-            val moveIntent = Intent(this@MainActivity, ProductPage::class.java)
-            moveIntent.putExtra("android", it)
-            startActivity(moveIntent)
-        }
-
+        recyclerClick()
 
     }
 
 
-    //fun setCurrentProductViewed(id: String, name : String, description : String, price : String, photo : String){
-    //    productViewed.id = id
-    //    productViewed.name = name
-    //    productViewed.description = description
-    //    productViewed.price = price
-    //    productViewed.photo = photo
-    //}
+
 
     fun getListProduct(): ArrayList<Product> {
         val dataId = resources.getStringArray(R.array.data_id)
@@ -124,10 +115,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRecyclerSearchList() {
         binding.rvProduct.layoutManager = LinearLayoutManager(this)
-        val listHeroAdapter = ListProductAdapter(searchList)
-        binding.rvProduct.adapter = listHeroAdapter
+        val listProductAdapter = ListProductAdapter(searchList)
+        binding.rvProduct.adapter = listProductAdapter
     }
 
+    private fun recyclerClick(){
+        listProductAdapter.onItemClick = {
+            Toast.makeText(applicationContext, "Berhasil Tekan Product", Toast.LENGTH_LONG).show()
+            val moveIntent = Intent(this@MainActivity, ProductPage::class.java)
+            moveIntent.putExtra("android", it)
+            startActivity(moveIntent)
+        }
+    }
     private fun drawer(){
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val imageProf : ImageView = findViewById(R.id.expanded_menu)

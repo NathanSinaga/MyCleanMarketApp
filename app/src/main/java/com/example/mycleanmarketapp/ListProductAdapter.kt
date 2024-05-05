@@ -37,4 +37,6 @@ class ListProductAdapter(private val listProduct: ArrayList<Product>) : Recycler
             onItemClick?.invoke(listProduct[position])
         }
     }
+
+
 }
