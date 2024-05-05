@@ -7,10 +7,12 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="16dp"
+
     android:background="@drawable/green_background"
     android:orientation="horizontal">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+
+    <ImageView
         android:id="@+id/img_item_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"

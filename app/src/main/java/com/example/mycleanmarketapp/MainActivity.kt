@@ -7,21 +7,29 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import java.util.Locale
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener as DrawerListener
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var listProductAdapter: ListProductAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView : androidx.appcompat.widget.SearchView
     private lateinit var binding: ActivityMainBinding
+    private var searchList : ArrayList<Product> = ArrayList()
     private val list = ArrayList<Product>()
-    private val productViewed = Product("1", "Indomie Ghaib", "Indomie yang tidak pernah dilihat mata", "Rp. 10.000","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf5Oiwd842E3iWMustkMn1TMDIrEgdUnaRITakR-akXw&s")
+    //private val productViewed = Product("1", "Indomie Ghaib", "Indomie yang tidak pernah dilihat mata", "Rp. 10.000","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf5Oiwd842E3iWMustkMn1TMDIrEgdUnaRITakR-akXw&s")
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,18 +42,68 @@ class MainActivity : AppCompatActivity() {
         drawer()
 
         list.addAll(getListProduct())
-        showRecyclerList()
+        showRecyclerSearchList()
         popupMenuMain()
+
+
+        recyclerView = findViewById(R.id.rv_product)
+        searchView = findViewById(R.id.search_input)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+
+
+        searchList.addAll(list)
+
+
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchList.clear()
+                val searchText = newText!!.toLowerCase(Locale.getDefault())
+                if(searchText.isNotEmpty()){
+                    list.forEach {
+                        if(it.name.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                            searchList.add(it)
+                            recyclerView.adapter!!.notifyDataSetChanged()
+                        }
+                    }
+                } else {
+                    searchList.clear()
+                    searchList.addAll(list)
+                    recyclerView.adapter!!.notifyDataSetChanged()
+                }
+                showRecyclerSearchList()
+                return true
+            }
+
+        })
+
+        listProductAdapter = ListProductAdapter(searchList)
+        recyclerView.adapter = listProductAdapter
+
+        listProductAdapter.onItemClick = {
+            Toast.makeText(applicationContext, "Berhasil Tekan Product", Toast.LENGTH_LONG).show()
+            val moveIntent = Intent(this@MainActivity, ProductPage::class.java)
+            moveIntent.putExtra("android", it)
+            startActivity(moveIntent)
+        }
+
+
     }
 
 
-    fun setCurrentProductViewed(id: String, name : String, description : String, price : String, photo : String){
-        productViewed.id = id
-        productViewed.name = name
-        productViewed.description = description
-        productViewed.price = price
-        productViewed.photo = photo
-    }
+    //fun setCurrentProductViewed(id: String, name : String, description : String, price : String, photo : String){
+    //    productViewed.id = id
+    //    productViewed.name = name
+    //    productViewed.description = description
+    //    productViewed.price = price
+    //    productViewed.photo = photo
+    //}
 
     fun getListProduct(): ArrayList<Product> {
         val dataId = resources.getStringArray(R.array.data_id)
@@ -60,12 +118,13 @@ class MainActivity : AppCompatActivity() {
             listProduct.add(product)
         }
 
-        listProduct.add(productViewed)
+        //listProduct.add(productViewed)
         return listProduct
     }
-    private fun showRecyclerList() {
+
+    private fun showRecyclerSearchList() {
         binding.rvProduct.layoutManager = LinearLayoutManager(this)
-        val listHeroAdapter = ListProductAdapter(list)
+        val listHeroAdapter = ListProductAdapter(searchList)
         binding.rvProduct.adapter = listHeroAdapter
     }
 
@@ -110,19 +169,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
 
-
         }
 
-
-
-
     }
-
-
-
-
-
-
-
 
 }

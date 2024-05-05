@@ -1,22 +1,32 @@
 package com.example.mycleanmarketapp
 
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class ProductPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         setContentView(R.layout.activity_product_page)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val getData = intent.getParcelableExtra<Product>("android")
+        if(getData != null){
+            val detilGambar: ImageView = findViewById(R.id.detilGambar)
+            val detilNama: TextView = findViewById(R.id.detilNama)
+            val detilHarga: TextView = findViewById(R.id.detilHarga)
+            val detilDeskripsi: TextView = findViewById(R.id.detilDeskripsi)
+
+
+            Glide.with(this).load(getData.photo).apply(RequestOptions().override(1000, 1000)).into(findViewById(R.id.detilGambar))
+            detilNama.text = getData.name
+            detilHarga.text = getData.price
+            detilDeskripsi.text = getData.description
         }
     }
 }

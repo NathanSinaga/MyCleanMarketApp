@@ -10,10 +10,12 @@ import com.example.mycleanmarketapp.databinding.ActivityMainBinding
 import com.example.mycleanmarketapp.databinding.ItemRowProductBinding as ItemRowProductBinding
 
 class ListProductAdapter(private val listProduct: ArrayList<Product>) : RecyclerView.Adapter<ListProductAdapter.ListViewHolder>() {
+
+    var onItemClick: ((Product) -> Unit)? = null
     inner class ListViewHolder(private val binding: ItemRowProductBinding ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             with(binding){
-                Glide.with(itemView.context).load(product.photo).apply(RequestOptions().override(55, 55)).into(imgItemPhoto)
+                Glide.with(itemView.context).load(product.photo).apply(RequestOptions().override(100, 100)).into(imgItemPhoto)
                 tvItemName.text = product.name
                 tvItemDescription.text = product.description
                 tvItemPrice.text= product.price
@@ -30,5 +32,9 @@ class ListProductAdapter(private val listProduct: ArrayList<Product>) : Recycler
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listProduct[position])
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(listProduct[position])
+        }
     }
 }
