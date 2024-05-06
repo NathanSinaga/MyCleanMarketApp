@@ -18,7 +18,7 @@ class ListProductAdapter(private val listProduct: ArrayList<Product>) : Recycler
                 Glide.with(itemView.context).load(product.photo).apply(RequestOptions().override(100, 100)).into(imgItemPhoto)
                 tvItemName.text = product.name
                 tvItemDescription.text = product.description
-                tvItemPrice.text= product.price
+                tvItemPrice.text =  "" + product.price
                 }
             }
     }

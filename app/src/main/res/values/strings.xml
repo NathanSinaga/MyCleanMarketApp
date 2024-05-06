@@ -57,13 +57,13 @@
     </string-array>
 
     <string-array name="data_price">
-        <item>Rp. 5.000</item>
-        <item>Rp. 3.000</item>
-        <item>Rp. 3.000</item>
-        <item>Rp. 4.000</item>
-        <item>Rp. 6.000</item>
-        <item>Rp. 4.000</item>
-        <item>Rp. 4.000</item>
-        <item>Rp. 5.000</item>
+        <item>3000</item>
+        <item>3000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>6000</item>
+        <item>4000</item>
+        <item>4000</item>
+        <item>5000</item>
     </string-array>
 </resources>

@@ -25,7 +25,7 @@ class ProductPage : AppCompatActivity() {
 
             Glide.with(this).load(getData.photo).apply(RequestOptions().override(1000, 1000)).into(findViewById(R.id.detilGambar))
             detilNama.text = getData.name
-            detilHarga.text = getData.price
+            detilHarga.text = "" + getData.price
             detilDeskripsi.text = getData.description
         }
     }

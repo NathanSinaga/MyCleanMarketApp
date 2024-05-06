@@ -78,6 +78,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_main">
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_product"
                 android:layout_width="match_parent"

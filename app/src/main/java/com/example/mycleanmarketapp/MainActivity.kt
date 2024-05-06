@@ -3,6 +3,7 @@ package com.example.mycleanmarketapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -100,14 +101,16 @@ class MainActivity : AppCompatActivity() {
         val dataId = resources.getStringArray(R.array.data_id)
         val dataName = resources.getStringArray(R.array.data_name)
         val dataDescription = resources.getStringArray(R.array.data_description)
-        val dataPrice = resources.getStringArray(R.array.data_price)
+        val dataPrice = resources.getIntArray(R.array.data_price)
         val dataPhoto = resources.getStringArray(R.array.data_photo)
-
+        Log.i("NumberGenerated", "HARGA")
         val listProduct = ArrayList<Product>()
         for (position in dataName.indices) {
-            val product = Product(dataId[position], dataName[position],dataDescription[position], dataPrice[position],dataPhoto[position])
+            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000,dataPhoto[position])
             listProduct.add(product)
+            //Log.i("NumberGenerated", ""+product.price);
         }
+
 
         //listProduct.add(productViewed)
         return listProduct
@@ -147,8 +150,8 @@ class MainActivity : AppCompatActivity() {
                     val moveIntent = Intent(this, ProfilePage::class.java)
                     startActivity(Intent(moveIntent))
                 }
-                R.id.nav_wishlist -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan Wishlist", Toast.LENGTH_LONG).show()
+                R.id.nav_tracking -> {
+                    Toast.makeText(applicationContext, "Berhasil Tekan Tracking", Toast.LENGTH_LONG).show()
                     //val moveIntent = Intent(this@MainActivity, LoginPage::class.java)
                     //startActivity(moveIntent)
                 }

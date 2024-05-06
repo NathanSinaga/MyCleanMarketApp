@@ -46,15 +46,34 @@
             android:maxLines="2"
             tools:text="@string/description" />
 
-        <TextView
-            android:id="@+id/tv_item_price"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#0C2D57"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            tools:text="@string/price"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rp."
+                android:textColor="#0C2D57"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Rp."/>
+
+            <TextView
+                android:id="@+id/tv_item_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10.000"
+                android:textColor="#0C2D57"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="@string/price"/>
+
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
