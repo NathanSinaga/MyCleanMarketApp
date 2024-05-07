@@ -1,4 +1,4 @@
-package com.example.mycleanmarketapp
+package com.example.mycleanmarketapp.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -9,6 +9,7 @@ data class Product (
     var name: String,
     var description: String,
     var price: Int,
+    var quantity: Int,
     var photo: String
 
 ) : Parcelable

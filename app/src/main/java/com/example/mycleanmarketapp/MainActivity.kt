@@ -4,30 +4,31 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.SearchView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mycleanmarketapp.api.ApiRetroFit
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
+import com.example.mycleanmarketapp.model.Product
+import com.example.mycleanmarketapp.model.ProductData
 import com.google.android.material.navigation.NavigationView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.util.Locale
-import androidx.drawerlayout.widget.DrawerLayout.DrawerListener as DrawerListener
 
 class MainActivity : AppCompatActivity() {
 
+    private val api by lazy { ApiRetroFit().endPoint }
     private lateinit var listProductAdapter: ListProductAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView : androidx.appcompat.widget.SearchView
     private lateinit var binding: ActivityMainBinding
     private var searchList : ArrayList<Product> = ArrayList()
     private val list = ArrayList<Product>()
-    //private val productViewed = Product("1", "Indomie Ghaib", "Indomie yang tidak pernah dilihat mata", "Rp. 10.000","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf5Oiwd842E3iWMustkMn1TMDIrEgdUnaRITakR-akXw&s")
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
 
@@ -97,28 +98,50 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     fun getListProduct(): ArrayList<Product> {
+
+        val listProduct = ArrayList<Product>()
+
+
+        api.data().enqueue(object : Callback<Product> {
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val responseBody = response.body()
+                    Log.i("Landmark 1", "Response: ${responseBody.toString()}")
+                    val listData = responseBody?.id
+                    Log.i("Landmark 2", "Response: " + listData)
+
+                } else {
+                    Log.i("Landmark 3", "Fail")
+                }
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                Log.e("MainActivity", t.toString())
+            }
+        })
+
         val dataId = resources.getStringArray(R.array.data_id)
         val dataName = resources.getStringArray(R.array.data_name)
         val dataDescription = resources.getStringArray(R.array.data_description)
         val dataPrice = resources.getIntArray(R.array.data_price)
         val dataPhoto = resources.getStringArray(R.array.data_photo)
         Log.i("NumberGenerated", "HARGA")
-        val listProduct = ArrayList<Product>()
+
         for (position in dataName.indices) {
-            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000,dataPhoto[position])
+            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
             listProduct.add(product)
-            //Log.i("NumberGenerated", ""+product.price);
+            Log.i("NumberGenerated", ""+product.price);
         }
 
 
-        //listProduct.add(productViewed)
         return listProduct
     }
 
     private fun showRecyclerSearchList() {
         binding.rvProduct.layoutManager = LinearLayoutManager(this)
-        val listProductAdapter = ListProductAdapter(searchList)
+        val listProductAdapter = ListRowCartAdapter(searchList)
         binding.rvProduct.adapter = listProductAdapter
     }
 
@@ -150,15 +173,15 @@ class MainActivity : AppCompatActivity() {
                     val moveIntent = Intent(this, ProfilePage::class.java)
                     startActivity(Intent(moveIntent))
                 }
-                R.id.nav_tracking -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan Tracking", Toast.LENGTH_LONG).show()
-                    //val moveIntent = Intent(this@MainActivity, LoginPage::class.java)
-                    //startActivity(moveIntent)
+                R.id.nav_cart -> {
+                    Toast.makeText(applicationContext, "Berhasil Tekan Cart", Toast.LENGTH_LONG).show()
+                    val moveIntent = Intent(this@MainActivity, CartPage::class.java)
+                    startActivity(moveIntent)
                 }
                 R.id.nav_history -> {
                     Toast.makeText(applicationContext, "Berhasil Tekan History", Toast.LENGTH_LONG).show()
-                    //val moveIntent = Intent(this@MainActivity, LoginPage::class.java)
-                    //startActivity(moveIntent)
+                    val moveIntent = Intent(this@MainActivity, HistoryPage::class.java)
+                    startActivity(moveIntent)
                 }
                 R.id.nav_customer_service -> {
                     Toast.makeText(applicationContext, "Berhasil Tekan CS", Toast.LENGTH_LONG).show()
@@ -176,3 +199,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+

@@ -5,9 +5,10 @@
          android:id="@+id/nav_profile"
          android:title="Profile"/>
     <item
-        android:icon="@drawable/icon_tracking"
-        android:id="@+id/nav_tracking"
-        android:title="Tracking"/>
+        android:icon="@drawable/icon_cart"
+        android:id="@+id/nav_cart"
+        android:title="Cart"/>
+
     <item
         android:icon="@drawable/icon_history"
         android:id="@+id/nav_history"
