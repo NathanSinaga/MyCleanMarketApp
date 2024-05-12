@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class Transaction (
     var id: String,
     var date: String,
-    var item : ArrayList<product>
+    var item : ArrayList<Product>
 
 ) : Parcelable

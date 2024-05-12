@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
-import com.example.mycleanmarketapp.model.product
+import com.example.mycleanmarketapp.model.Product
 import com.example.mycleanmarketapp.model.Transaction
 
 class HistoryPage2 : AppCompatActivity() {
 
     private lateinit var listProductAdapter: ListProductAdapter
     private var recyclerView: RecyclerView = findViewById(R.id.aku_disini)
-    private val list = ArrayList<product>()
+    private val list = ArrayList<Product>()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

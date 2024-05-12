@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
-import com.example.mycleanmarketapp.model.product
+import com.example.mycleanmarketapp.model.Product
 import com.example.mycleanmarketapp.model.Transaction
 
 class HistoryPage : AppCompatActivity() {
@@ -49,9 +49,9 @@ class HistoryPage : AppCompatActivity() {
         val dataPrice = resources.getIntArray(R.array.data_price)
         val dataPhoto = resources.getStringArray(R.array.data_photo)
         Log.i("NumberGenerated", "HARGA")
-        val listProduct = ArrayList<product>()
+        val listProduct = ArrayList<Product>()
         for (position in dataName.indices) {
-            val product = product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
+            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
             listProduct.add(product)
             //Log.i("CART_CART_CART_CART", "MASUK_MASUK_MASUK_MASUK"+product.name);
         }

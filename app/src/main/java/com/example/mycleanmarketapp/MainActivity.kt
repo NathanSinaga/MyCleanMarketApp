@@ -12,13 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.api.ApiRetroFit
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
-import com.example.mycleanmarketapp.model.product
+import com.example.mycleanmarketapp.model.Product
 import com.example.mycleanmarketapp.model.ProductData
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +25,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView : androidx.appcompat.widget.SearchView
     private lateinit var binding: ActivityMainBinding
-    private var searchList : ArrayList<product> = ArrayList()
-    private val list = ArrayList<product>()
+    private var searchList : ArrayList<Product> = ArrayList()
+    private val list = ArrayList<Product>()
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
     private lateinit var headerEmail: TextView
@@ -105,30 +102,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun getListProduct(): ArrayList<product> {
+    fun getListProduct(): ArrayList<Product> {
 
-        val listProduct = ArrayList<product>()
+        val listProduct = ArrayList<Product>()
 
         val prod : ProductData
 
 
-        api.data().enqueue(object : Callback<product> {
-            override fun onResponse(call: Call<product>, response: Response<product>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val responseBody = response.body()
-                    Log.i("Landmark 1", "Response: ${responseBody.toString()}")
-                    val prod = responseBody?.id
-                    Log.i("Landmark 2", "Response: " + prod)
-
-                } else {
-                    Log.i("Landmark 3", "Fail")
-                }
-            }
-
-            override fun onFailure(call: Call<product>, t: Throwable) {
-                Log.e("MainActivity", t.toString())
-            }
-        })
 
         val dataId = resources.getStringArray(R.array.data_id)
         val dataName = resources.getStringArray(R.array.data_name)
@@ -138,10 +118,16 @@ class MainActivity : AppCompatActivity() {
         Log.i("NumberGenerated", "HARGA")
 
         for (position in dataName.indices) {
-            val product = product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
+            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
             listProduct.add(product)
-            Log.i("NumberGenerated", ""+product.price);
+            Log.i("NumberGenerated", ""+product.ProductPrice);
         }
+
+        //listProduct.clear()
+
+        //Masukan kode nya disini
+
+        //Masukan kode nya disini
 
 
         return listProduct
