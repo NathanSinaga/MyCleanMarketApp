@@ -6,14 +6,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.mycleanmarketapp.model.Product
+import com.example.mycleanmarketapp.model.product
 
 class ProductPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_page)
 
-        val getData = intent.getParcelableExtra<Product>("android")
+        val getData = intent.getParcelableExtra<product>("android")
         if(getData != null){
             val detilGambar: ImageView = findViewById(R.id.detilGambar)
             val detilNama: TextView = findViewById(R.id.detilNama)
@@ -22,7 +22,7 @@ class ProductPage : AppCompatActivity() {
 
 
             Glide.with(this).load(getData.photo).apply(RequestOptions().override(1000, 1000)).into(findViewById(R.id.detilGambar))
-            detilNama.text = getData.name
+            detilNama.text = getData.ProductName
             detilHarga.text = "" + getData.price
             detilDeskripsi.text = getData.description
         }

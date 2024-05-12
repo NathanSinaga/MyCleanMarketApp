@@ -2,7 +2,11 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
+
 }
+
+
 
 android {
     namespace = "com.example.mycleanmarketapp"
@@ -44,6 +48,7 @@ android {
 dependencies {
 
     implementation ("com.midtrans:uikit:2.0.0-SANDBOX")
+    implementation ("com.midtrans:uikit:1.23.1")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -54,10 +59,14 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("androidx.drawerlayout:drawerlayout:1.1.1")
     implementation("androidx.activity:activity:1.8.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
 
     //API
     implementation("com.squareup.okhttp3:okhttp")

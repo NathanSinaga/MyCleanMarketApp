@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "36195944434",
+    "firebase_url": "https://borneo-72fef-default-rtdb.firebaseio.com",
+    "project_id": "borneo-72fef",
+    "storage_bucket": "borneo-72fef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36195944434:android:85440ab0b5ddf90597cd6b",
+        "android_client_info": {
+          "package_name": "com.example.mycleanmarketapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHOTPeEe_EhsNThHEyHNK7ci6vxxn71ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

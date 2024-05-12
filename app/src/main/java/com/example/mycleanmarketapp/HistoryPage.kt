@@ -1,17 +1,13 @@
 package com.example.mycleanmarketapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
-import com.example.mycleanmarketapp.model.Product
+import com.example.mycleanmarketapp.model.product
 import com.example.mycleanmarketapp.model.Transaction
 
 class HistoryPage : AppCompatActivity() {
@@ -53,9 +49,9 @@ class HistoryPage : AppCompatActivity() {
         val dataPrice = resources.getIntArray(R.array.data_price)
         val dataPhoto = resources.getStringArray(R.array.data_photo)
         Log.i("NumberGenerated", "HARGA")
-        val listProduct = ArrayList<Product>()
+        val listProduct = ArrayList<product>()
         for (position in dataName.indices) {
-            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
+            val product = product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
             listProduct.add(product)
             //Log.i("CART_CART_CART_CART", "MASUK_MASUK_MASUK_MASUK"+product.name);
         }
@@ -80,9 +76,9 @@ class HistoryPage : AppCompatActivity() {
 
     private fun recyclerClick(){
         listTransAdapter.onItemClick = {
-            val moveIntent = Intent(this@HistoryPage, HistoryPage2::class.java)
-            moveIntent.putExtra("android", it)
-            startActivity(moveIntent)
+            //val moveIntent = Intent(this@HistoryPage, HistoryPage2::class.java)
+            //moveIntent.putExtra("android", it)
+            //startActivity(moveIntent)
         }
 
 

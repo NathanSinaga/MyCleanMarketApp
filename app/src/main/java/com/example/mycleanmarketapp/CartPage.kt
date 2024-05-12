@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
-import com.example.mycleanmarketapp.model.Product
+import com.example.mycleanmarketapp.model.product
 
 
 class CartPage : AppCompatActivity() {
 
     private lateinit var listProductAdapter: ListRowCartAdapter
     private lateinit var recyclerView: RecyclerView
-    private val list = ArrayList<Product>()
+    private val list = ArrayList<product>()
     private lateinit var binding: ActivityMainBinding
     private lateinit var total : TextView
     var totalPayment = 0
@@ -45,16 +45,16 @@ class CartPage : AppCompatActivity() {
 
     }
 
-    fun getListProduct(): ArrayList<Product> {
+    fun getListProduct(): ArrayList<product> {
         val dataId = resources.getStringArray(R.array.data_id)
         val dataName = resources.getStringArray(R.array.data_name)
         val dataDescription = resources.getStringArray(R.array.data_description)
         val dataPrice = resources.getIntArray(R.array.data_price)
         val dataPhoto = resources.getStringArray(R.array.data_photo)
         Log.i("NumberGenerated", "HARGA")
-        val listProduct = ArrayList<Product>()
+        val listProduct = ArrayList<product>()
         for (position in dataName.indices) {
-            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
+            val product = product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
             listProduct.add(product)
             //Log.i("CART_CART_CART_CART", "MASUK_MASUK_MASUK_MASUK"+product.name);
         }

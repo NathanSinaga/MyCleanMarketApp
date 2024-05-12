@@ -5,19 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.api.ApiRetroFit
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
-import com.example.mycleanmarketapp.model.Product
+import com.example.mycleanmarketapp.model.product
 import com.example.mycleanmarketapp.model.ProductData
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -27,17 +28,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView : androidx.appcompat.widget.SearchView
     private lateinit var binding: ActivityMainBinding
-    private var searchList : ArrayList<Product> = ArrayList()
-    private val list = ArrayList<Product>()
+    private var searchList : ArrayList<product> = ArrayList()
+    private val list = ArrayList<product>()
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var headerEmail: TextView
 
 
-
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseUser = firebaseAuth.currentUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         binding.rvProduct.setHasFixedSize(true)
 
@@ -46,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         list.addAll(getListProduct())
         showRecyclerSearchList()
         popupMenuMain()
+
 
 
         recyclerView = findViewById(R.id.rv_product)
@@ -74,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 val searchText = newText!!.toLowerCase(Locale.getDefault())
                 if(searchText.isNotEmpty()){
                     list.forEach {
-                        if(it.name.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                        if(it.ProductName.toLowerCase(Locale.getDefault()).contains(searchText)) {
                             searchList.add(it)
 
                         }
@@ -99,25 +105,27 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun getListProduct(): ArrayList<Product> {
+    fun getListProduct(): ArrayList<product> {
 
-        val listProduct = ArrayList<Product>()
+        val listProduct = ArrayList<product>()
+
+        val prod : ProductData
 
 
-        api.data().enqueue(object : Callback<Product> {
-            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+        api.data().enqueue(object : Callback<product> {
+            override fun onResponse(call: Call<product>, response: Response<product>) {
                 if (response.isSuccessful && response.body() != null) {
                     val responseBody = response.body()
                     Log.i("Landmark 1", "Response: ${responseBody.toString()}")
-                    val listData = responseBody?.id
-                    Log.i("Landmark 2", "Response: " + listData)
+                    val prod = responseBody?.id
+                    Log.i("Landmark 2", "Response: " + prod)
 
                 } else {
                     Log.i("Landmark 3", "Fail")
                 }
             }
 
-            override fun onFailure(call: Call<Product>, t: Throwable) {
+            override fun onFailure(call: Call<product>, t: Throwable) {
                 Log.e("MainActivity", t.toString())
             }
         })
@@ -130,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("NumberGenerated", "HARGA")
 
         for (position in dataName.indices) {
-            val product = Product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
+            val product = product(dataId[position], dataName[position],dataDescription[position], 3000, 1, dataPhoto[position])
             listProduct.add(product)
             Log.i("NumberGenerated", ""+product.price);
         }
@@ -166,34 +174,52 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
 
-        navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.nav_profile -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan Edit Profile", Toast.LENGTH_LONG).show()
-                    val moveIntent = Intent(this, ProfilePage::class.java)
-                    startActivity(Intent(moveIntent))
-                }
-                R.id.nav_cart -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan Cart", Toast.LENGTH_LONG).show()
-                    val moveIntent = Intent(this@MainActivity, CartPage::class.java)
-                    startActivity(moveIntent)
-                }
-                R.id.nav_history -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan History", Toast.LENGTH_LONG).show()
-                    val moveIntent = Intent(this@MainActivity, HistoryPage::class.java)
-                    startActivity(moveIntent)
-                }
-                R.id.nav_customer_service -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan CS", Toast.LENGTH_LONG).show()
-                }
-                R.id.nav_terms_and_conditions -> {
-                    Toast.makeText(applicationContext, "Berhasil Tekan Kebijakan", Toast.LENGTH_LONG).show()
+        if(firebaseUser!=null) {
+            navView.setNavigationItemSelectedListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.nav_profile -> {
+                        Toast.makeText(
+                            applicationContext,
+                            firebaseUser.email.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val moveIntent = Intent(this, ProfilePage::class.java)
+                        startActivity(Intent(moveIntent))
+                    }
+
+                    R.id.nav_cart -> {
+                        Toast.makeText(applicationContext, "Berhasil Tekan Cart", Toast.LENGTH_LONG)
+                            .show()
+                        val moveIntent = Intent(this@MainActivity, CartPage::class.java)
+                        startActivity(moveIntent)
+                    }
+
+                    R.id.nav_history -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "Berhasil Tekan History",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val moveIntent = Intent(this@MainActivity, HistoryPage::class.java)
+                        startActivity(moveIntent)
+                    }
+
+                    R.id.nav_terms_and_conditions -> {
+                        Toast.makeText(
+                            applicationContext,
+                            "Berhasil Tekan Kebijakan",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
 
                 }
+                true
 
             }
-            true
+        } else {
 
+            startActivity(Intent(this, LoginPage::class.java))
         }
 
     }
