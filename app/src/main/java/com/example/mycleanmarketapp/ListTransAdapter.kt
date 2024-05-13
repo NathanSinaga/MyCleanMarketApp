@@ -13,8 +13,9 @@ class ListTransAdapter(private val listTrans: ArrayList<Transaction>) : Recycler
     inner class ListViewHolder(private val binding: ItemTransRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: Transaction) {
             with(binding){
-                transId.text= transaction.id
-                transDate.text = transaction.date
+                transId.text= transaction.TransId
+                transDate.text = transaction.TransDate
+                transTotal.text = transaction.TransTotal.toString()
             }
         }
     }

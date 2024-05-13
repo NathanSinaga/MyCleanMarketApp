@@ -1,5 +1,6 @@
 package com.example.mycleanmarketapp
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -9,6 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mycleanmarketapp.databinding.ActivityMainBinding
 import com.example.mycleanmarketapp.model.Product
 import com.example.mycleanmarketapp.model.Transaction
+import com.google.firebase.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
+import com.google.firebase.database.getValue
 
 class HistoryPage : AppCompatActivity() {
     private lateinit var listTransAdapter: ListTransAdapter
@@ -17,6 +24,8 @@ class HistoryPage : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var total : TextView
     var totalPayment = 0
+    var database = Firebase.database
+    var myRef = database.getReference("Transaction")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -57,11 +66,39 @@ class HistoryPage : AppCompatActivity() {
         }
 
 
-        val trans1 = Transaction("x1/XIII/001/2024", "22 Mei 2024", listProduct)
-        val trans2 = Transaction("x1/XIII/002/2024", "23 Mei 2024", listProduct)
+        val trans1 = Transaction("x1/XIII/001/2024", "22 Mei 2024", 1000)
+        val trans2 = Transaction("x1/XIII/002/2024", "23 Mei 2024", 1000)
         val listTrans = ArrayList<Transaction>()
         listTrans.add(trans1)
         listTrans.add(trans2)
+
+        listTrans.clear()
+
+        myRef.addValueEventListener(object: ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                snapshot.children.forEach { dataSnapshot ->
+                    val value : Transaction? = dataSnapshot.getValue<Transaction>()
+                    Log.i(ContentValues.TAG, "Value is: " + value.toString())
+                    if (value != null) {
+                        listTrans.add(value)
+                        Log.i(ContentValues.TAG, value.toString())
+
+                    }
+                }
+                recyclerView.adapter!!.notifyDataSetChanged()
+                list.clear()
+                list.addAll(listTrans)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.i(ContentValues.TAG, "Failed to read value.", error.toException())
+            }
+
+        })
         return listTrans
     }
 

@@ -26,9 +26,7 @@ class HistoryPage2 : AppCompatActivity() {
 
 
 
-        if (getData != null) {
-            list.addAll(getData.item)
-        }
+
         showRecyclerList()
 
 

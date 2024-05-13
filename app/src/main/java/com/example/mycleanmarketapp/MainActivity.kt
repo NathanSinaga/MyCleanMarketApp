@@ -1,12 +1,12 @@
 package com.example.mycleanmarketapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,11 +15,14 @@ import com.example.mycleanmarketapp.databinding.ActivityMainBinding
 import com.example.mycleanmarketapp.model.Product
 import com.example.mycleanmarketapp.model.ProductData
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.database
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
+    
     private val api by lazy { ApiRetroFit().endPoint }
     private lateinit var listProductAdapter: ListProductAdapter
     private lateinit var recyclerView: RecyclerView
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView: NavigationView
     private lateinit var headerEmail: TextView
 
+    var database = Firebase.database
+    var myRef = database.getReference("message")
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseUser = firebaseAuth.currentUser
@@ -38,6 +43,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
 
 
 
@@ -96,6 +104,8 @@ class MainActivity : AppCompatActivity() {
 
         recyclerClick()
 
+        //myRef.setValue("Hello, World!")
+
     }
 
 
@@ -123,12 +133,12 @@ class MainActivity : AppCompatActivity() {
             Log.i("NumberGenerated", ""+product.ProductPrice);
         }
 
-        //listProduct.clear()
+
+
+
 
         //Masukan kode nya disini
-
         //Masukan kode nya disini
-
 
         return listProduct
     }

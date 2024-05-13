@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Transaction (
-    var id: String,
-    var date: String,
-    var item : ArrayList<Product>
+data class Transaction @JvmOverloads constructor(
+    var TransId: String = "",
+    var TransDate: String = "",
+    var TransTotal: Int = 0
 
 ) : Parcelable
